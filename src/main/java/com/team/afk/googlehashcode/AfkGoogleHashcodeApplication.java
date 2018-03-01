@@ -7,6 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class AfkGoogleHashcodeApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AfkGoogleHashcodeApplication.class, args);
+		//SpringApplication.run(AfkGoogleHashcodeApplication.class, args);
+
+		System.out.println("Test");
+
 	}
 }
