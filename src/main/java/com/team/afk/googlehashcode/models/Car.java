@@ -17,7 +17,9 @@ public class Car {
     }
 
     public void move(long step) {
-
+        System.err.println("=============================================================");
+        System.err.println("Ride start " + ride.columnStart + " " + ride.rowStart + " | " + ride.columnFinish + " " + ride.rowFinish);
+        System.err.println("Ride id: " + ride.rideId  +  " Car start location: " + x + " " + y);
         if(ride != null) {
 
             if (x == ride.columnFinish && y == ride.rowFinish) {
@@ -30,6 +32,7 @@ public class Car {
             long largestY;
 
             if (started) {
+                System.err.println("Car moving to end");
                 //Trip started moving to end
                 if (x != ride.columnFinish) {
                     moveX(ride.columnFinish);
@@ -42,22 +45,24 @@ public class Car {
                 }
             }
             else {
+                System.err.println("Car moving to start");
                 //Trip not started moving to start
-                if (x != ride.columnFinish) {
-                    moveX(ride.columnFinish);
-                } else if (y != ride.rowFinish) {
-                    moveX(ride.rowFinish);
+                if (x != ride.columnStart) {
+                    moveX(ride.columnStart);
+                } else if (y != ride.rowStart) {
+                    moveX(ride.rowStart);
                 } else {
                     ride = null;
                 }
             }
         }
 
-
+        System.err.println("Car end location: " + x + " " + y);
+        System.err.println("=============================================================");
     }
 
     private void moveX(long destX) {
-        if(x < destX) {
+        if(x > destX) {
             x--;
         }
         else {
@@ -66,7 +71,7 @@ public class Car {
     }
 
     private void moveY(long destY) {
-        if(y < destY) {
+        if(y > destY) {
             y--;
         }
         else {

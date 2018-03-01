@@ -43,11 +43,14 @@ public class Simulator {
         assignedVehicles = new ArrayList<>();
 
         //initialize vehicles
+        System.err.println("Fleet size: " + problemStructure.getFleetSize());
         for (int x = 0; x < problemStructure.getFleetSize(); x++) {
+            System.err.println("adding car");
              unassignedVehicles.add(new Car(0, 0));
-             if(x < size && x < unassignedVehicles.size()) {
+             if(x < problemStructure.getRides().size() && x < unassignedVehicles.size()) {
+                 System.err.println("Assigning ride");
                  Car car = unassignedVehicles.remove(x);
-                 car.setRide(problemStructure.getRides().remove(x));
+                 car.setRide(problemStructure.getRides().remove(0));
                  assignedVehicles.add(car);
              }
         }
