@@ -1,14 +1,19 @@
 package com.team.afk.googlehashcode.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Car {
     long x;
     long y;
     Ride ride;
     boolean started = false;
+    List<Ride> rides;
 
     public Car(final long x, final long y) {
         this.x = x;
         this.y = y;
+        rides = new ArrayList<>();
     }
 
     public void move(long step) {
@@ -98,6 +103,7 @@ public class Car {
 
     public void setRide(final Ride ride) {
         this.ride = ride;
+        rides.add(ride);
     }
 
     public boolean isDone() {

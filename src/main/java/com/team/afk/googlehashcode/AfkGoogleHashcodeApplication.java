@@ -37,7 +37,7 @@ public class AfkGoogleHashcodeApplication {
 			for(int i = 0; i < problemStructure.getNumberOfRides(); i++){
 				sCurrentLine = br.readLine();
 				String[] ridesArray = sCurrentLine.split(" ");
-				problemStructure.getRides().add(new Ride(Long.parseLong(ridesArray[0]), Long.parseLong(ridesArray[1]), Long.parseLong(ridesArray[2]),
+				problemStructure.getRides().add(new Ride(i, Long.parseLong(ridesArray[0]), Long.parseLong(ridesArray[1]), Long.parseLong(ridesArray[2]),
 						Long.parseLong(ridesArray[3]), Long.parseLong(ridesArray[4]), Long.parseLong(ridesArray[5])));
 			}
 			return problemStructure;

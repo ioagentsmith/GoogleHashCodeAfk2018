@@ -1,6 +1,7 @@
 package com.team.afk.googlehashcode.models;
 
 public class Ride {
+    long rideId;
     long rowStart;
     long columnStart;
     long rowFinish;
@@ -8,13 +9,14 @@ public class Ride {
     long earliestStart;
     long latestFinish;
 
-    public Ride(final long rowStart, final long columnStart, final long rowFinish, final long columnFinish, final long earliestStart, final long latestFinish) {
+    public Ride(final int rideId, final long rowStart, final long columnStart, final long rowFinish, final long columnFinish, final long earliestStart, final long latestFinish) {
         this.rowStart = rowStart;
         this.columnStart = columnStart;
         this.rowFinish = rowFinish;
         this.columnFinish = columnFinish;
         this.earliestStart = earliestStart;
         this.latestFinish = latestFinish;
+        this.rideId = rideId;
     }
 
     public long getRowStart() {
@@ -63,5 +65,13 @@ public class Ride {
 
     public void setLatestFinish(final long latestFinish) {
         this.latestFinish = latestFinish;
+    }
+
+    public long getRideId() {
+        return rideId;
+    }
+
+    public void setRideId(final long rideId) {
+        this.rideId = rideId;
     }
 }

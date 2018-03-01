@@ -73,9 +73,17 @@ public class Simulator {
         }
     }
 
-    private void findClosestCarToRide(Ride ride) {
+    private Car findClosestCarToRide(Ride ride) {
+
+        Car closest = null;
+        Long shortestDistance = -1L;
         for (Car car : unassignedVehicles ) {
-            
+            long distance = car.pathLenghTo(ride.getColumnStart(), ride.getRowStart());
+            if(distance < shortestDistance) {
+                shortestDistance = distance;
+                closest = car;
+            }
         }
+        return closest;
     }
 }
