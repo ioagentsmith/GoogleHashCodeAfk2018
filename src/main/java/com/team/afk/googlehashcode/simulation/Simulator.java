@@ -50,8 +50,10 @@ public class Simulator {
              if(x < problemStructure.getRides().size() && x < unassignedVehicles.size()) {
                  System.err.println("Assigning ride");
                  Car car = unassignedVehicles.remove(x);
+                 if (car != null){
                  car.setRide(problemStructure.getRides().remove(0));
                  assignedVehicles.add(car);
+                 }
              }
         }
 
@@ -65,7 +67,10 @@ public class Simulator {
             System.err.println("Step " + i);
             for (int x = 0; x < assignedVehicles.size(); x++) {
                 //Move car
+                System.err.println("Before Moving car " + x + " --> " + assignedVehicles.get(x));
+                if (assignedVehicles.get(x)!= null){
                 moveCar(assignedVehicles.get(x), x, i);
+                }
             }
             //assign new ride
             assignRides();
