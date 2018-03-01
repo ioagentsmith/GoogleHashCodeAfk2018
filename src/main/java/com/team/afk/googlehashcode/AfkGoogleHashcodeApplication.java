@@ -3,22 +3,19 @@ package com.team.afk.googlehashcode;
 import com.team.afk.googlehashcode.models.ProblemStructure;
 import com.team.afk.googlehashcode.models.Ride;
 import com.team.afk.googlehashcode.simulation.Simulator;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 
-@SpringBootApplication
 public class AfkGoogleHashcodeApplication {
 
 	public static void main(String[] args) {
 
 		System.out.println("Test");
 
-		ProblemStructure problemStructure = readProblemStructure(".\\src\\main\\resources\\a_example.in");
+		ProblemStructure problemStructure = readProblemStructure("C:\\Source\\GoogleHashCodeAfk2018\\src\\main\\resources\\a_example.in");
 		new Simulator(problemStructure).run();
 	}
 
