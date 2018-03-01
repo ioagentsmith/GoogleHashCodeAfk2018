@@ -45,7 +45,7 @@ public class Simulator {
         //initialize vehicles
         for (int x = 0; x < problemStructure.getFleetSize(); x++) {
              unassignedVehicles.add(new Car(0, 0));
-             if(x < size) {
+             if(x < size && x < unassignedVehicles.size()) {
                  Car car = unassignedVehicles.remove(x);
                  car.setRide(problemStructure.getRides().remove(x));
                  assignedVehicles.add(car);
@@ -59,6 +59,7 @@ public class Simulator {
     private void runSimulation() {
 
         for(int i = 0; i < problemStructure.getSteps(); i++) {
+            System.err.println("Step " + i);
             for (int x = 0; x < assignedVehicles.size(); x++) {
                 //Move car
                 moveCar(assignedVehicles.get(x), x, i);
@@ -73,7 +74,8 @@ public class Simulator {
         for (int i = 0; i < problemStructure.getRides().size(); i++) {
             //calculating shortest path to next ride
             Car car = findClosestAvailableCarToRide(problemStructure.getRides().get(i));
-            assignedVehicles.add(unassignedVehicles.remove(i));
+            unassignedVehicles.remove(car);
+            assignedVehicles.add(car);
         }
     }
 

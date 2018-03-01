@@ -110,4 +110,12 @@ public class Car {
 
         return (ride == null);
     }
+
+    public boolean isStarted() {
+        return started;
+    }
+
+    public List<Ride> getRides() {
+        return rides;
+    }
 }
