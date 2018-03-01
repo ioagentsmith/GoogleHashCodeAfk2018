@@ -24,6 +24,7 @@ public class Car {
 
             if (x == ride.columnFinish && y == ride.rowFinish) {
                 ride = null;
+                return;
             }
             else if (x == ride.columnStart && y == ride.rowStart && step >= ride.getEarliestStart()) {
                 started = true;
@@ -50,9 +51,7 @@ public class Car {
                 if (x != ride.columnStart) {
                     moveX(ride.columnStart);
                 } else if (y != ride.rowStart) {
-                    moveX(ride.rowStart);
-                } else {
-                    ride = null;
+                    moveY(ride.rowStart);
                 }
             }
         }

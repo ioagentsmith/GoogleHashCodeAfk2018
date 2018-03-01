@@ -47,9 +47,9 @@ public class Simulator {
         for (int x = 0; x < problemStructure.getFleetSize(); x++) {
             System.err.println("adding car");
              unassignedVehicles.add(new Car(0, 0));
-             if(x < problemStructure.getRides().size() && x < unassignedVehicles.size()) {
+             if(x < problemStructure.getRides().size()) {
                  System.err.println("Assigning ride");
-                 Car car = unassignedVehicles.remove(x);
+                 Car car = unassignedVehicles.remove(0);
                  car.setRide(problemStructure.getRides().remove(0));
                  assignedVehicles.add(car);
              }
@@ -83,10 +83,16 @@ public class Simulator {
     }
 
     private void moveCar(final Car car, final int carIndex, int step) {
-        car.move(step);
-        if(car.isDone()) {
-            unassignedVehicles.add(assignedVehicles.remove(carIndex));
-        }
+
+
+
+            if(car != null) {
+                car.move(step);
+                if(car.isDone()) {
+                    unassignedVehicles.add(assignedVehicles.remove(carIndex));
+                }
+            }
+
     }
 
     private Car findClosestAvailableCarToRide(Ride ride) {
