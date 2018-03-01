@@ -10,8 +10,9 @@ import java.util.List;
 
 public class Simulator {
     ProblemStructure problemStructure;
-    private ArrayList<Car> unassignedVehicles;
-    private ArrayList<Car> assignedVehicles;
+//    private ArrayList<Car> unassignedVehicles;
+//    private ArrayList<Car> assignedVehicles;
+    private ArrayList<Car> cars;
 
     public Simulator(final ProblemStructure problemStructure) {
         this.problemStructure = problemStructure;
@@ -39,19 +40,20 @@ public class Simulator {
 //            System.err.println(ride.getEarliestStart());
 //        }
 
-        unassignedVehicles = new ArrayList<>();
-        assignedVehicles = new ArrayList<>();
-
+//        unassignedVehicles = new ArrayList<>();
+//        assignedVehicles = new ArrayList<>();
+        cars = new ArrayList<>();
         //initialize vehicles
         System.err.println("Fleet size: " + problemStructure.getFleetSize());
         for (int x = 0; x < problemStructure.getFleetSize(); x++) {
             System.err.println("adding car");
-             unassignedVehicles.add(new Car(0, 0));
+            cars.add(new Car(0, 0));
              if(x < problemStructure.getRides().size()) {
                  System.err.println("Assigning ride");
-                 Car car = unassignedVehicles.remove(0);
+//                 Car car = unassignedVehicles.remove(0);
+                 Car car = cars.get(x);
                  car.setRide(problemStructure.getRides().remove(0));
-                 assignedVehicles.add(car);
+//                 assignedVehicles.add(car);
              }
         }
 
@@ -61,11 +63,15 @@ public class Simulator {
 
     private void runSimulation() {
 
+//        System.err.println("Assigned: " + assignedVehicles.size());
+//        System.err.println("Unassigned: " + unassignedVehicles.size());
+        System.err.println("Rides: " + problemStructure.getRides().size());
+
         for(int i = 0; i < problemStructure.getSteps(); i++) {
             System.err.println("Step " + i);
-            for (int x = 0; x < assignedVehicles.size(); x++) {
+            for (int x = 0; x < cars.size(); x++) {
                 //Move car
-                moveCar(assignedVehicles.get(x), x, i);
+                moveCar(cars.get(x), x, i);
             }
             //assign new ride
             assignRides();
@@ -77,20 +83,19 @@ public class Simulator {
         for (int i = 0; i < problemStructure.getRides().size(); i++) {
             //calculating shortest path to next ride
             Car car = findClosestAvailableCarToRide(problemStructure.getRides().get(i));
-            unassignedVehicles.remove(car);
-            assignedVehicles.add(car);
+            if(car != null) {
+                car.setRide(problemStructure.getRides().get(i));
+            }
+
+//            unassignedVehicles.remove(car);
+//            cars.add(car);
         }
     }
 
     private void moveCar(final Car car, final int carIndex, int step) {
 
-
-
             if(car != null) {
                 car.move(step);
-                if(car.isDone()) {
-                    unassignedVehicles.add(assignedVehicles.remove(carIndex));
-                }
             }
 
     }
@@ -99,11 +104,13 @@ public class Simulator {
 
         Car closest = null;
         Long shortestDistance = -1L;
-        for (Car car : unassignedVehicles ) {
-            long distance = car.pathLenghTo(ride.getColumnStart(), ride.getRowStart());
-            if(distance < shortestDistance) {
-                shortestDistance = distance;
-                closest = car;
+        for (Car car : cars ) {
+            if(car.getRide() == null) {
+                long distance = car.pathLenghTo(ride.getColumnStart(), ride.getRowStart());
+                if(distance < shortestDistance) {
+                    shortestDistance = distance;
+                    closest = car;
+                }
             }
         }
         return closest;
