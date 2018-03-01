@@ -60,20 +60,31 @@ public class Simulator {
 
         for(int i = 0; i < problemStructure.getSteps(); i++) {
             for (int x = 0; x < assignedVehicles.size(); x++) {
-                Car car = assignedVehicles.get(x);
-                car.move(i);
-                if(car.isDone()) {
-                    unassignedVehicles.add(assignedVehicles.remove(x));
-                }
-                //assign new ride
-
-                //calculating shortest path to next ride
+                //Move car
+                moveCar(assignedVehicles.get(x), x, i);
             }
+            //assign new ride
+            assignRides();
 
         }
     }
 
-    private Car findClosestCarToRide(Ride ride) {
+    private void assignRides() {
+        for (int i = 0; i < problemStructure.getRides().size(); i++) {
+            //calculating shortest path to next ride
+            Car car = findClosestAvailableCarToRide(problemStructure.getRides().get(i));
+            assignedVehicles.add(unassignedVehicles.remove(i));
+        }
+    }
+
+    private void moveCar(final Car car, final int carIndex, int step) {
+        car.move(step);
+        if(car.isDone()) {
+            unassignedVehicles.add(assignedVehicles.remove(carIndex));
+        }
+    }
+
+    private Car findClosestAvailableCarToRide(Ride ride) {
 
         Car closest = null;
         Long shortestDistance = -1L;
