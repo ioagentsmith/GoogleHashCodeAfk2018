@@ -1,6 +1,6 @@
 package com.team.afk.googlehashcode.models;
 
-public class Rides {
+public class Ride {
     long rowStart;
     long columnStart;
     long rowFinish;
@@ -8,7 +8,7 @@ public class Rides {
     long earliestStart;
     long latestFinish;
 
-    public Rides(final long rowStart, final long columnStart, final long rowFinish, final long columnFinish, final long earliestStart, final long latestFinish) {
+    public Ride(final long rowStart, final long columnStart, final long rowFinish, final long columnFinish, final long earliestStart, final long latestFinish) {
         this.rowStart = rowStart;
         this.columnStart = columnStart;
         this.rowFinish = rowFinish;

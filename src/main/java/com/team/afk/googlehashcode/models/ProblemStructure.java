@@ -12,7 +12,7 @@ public class ProblemStructure
     long perRideBonus;
     long steps;
 
-    List<Rides> rides = new ArrayList<>();
+    List<Ride> rides = new ArrayList<>();
 
     public ProblemStructure(final long rowNumbers, final long numberOfColumns, final long fleetSize, final long numberOfRides, final long perRideBonus, final long steps) {
         this.rowNumbers = rowNumbers;
@@ -71,7 +71,7 @@ public class ProblemStructure
         this.steps = steps;
     }
 
-    public List<Rides> getRides() {
+    public List<Ride> getRides() {
         if (rides == null) {
             rides = new ArrayList<>();
         }
@@ -79,7 +79,7 @@ public class ProblemStructure
         return rides;
     }
 
-    public void setRides(final List<Rides> rides) {
+    public void setRides(final List<Ride> rides) {
         this.rides = rides;
     }
 }

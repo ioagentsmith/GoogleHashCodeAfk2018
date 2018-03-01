@@ -1,12 +1,17 @@
 package com.team.afk.googlehashcode.simulation;
 
+import com.team.afk.googlehashcode.models.Car;
 import com.team.afk.googlehashcode.models.ProblemStructure;
-import com.team.afk.googlehashcode.models.Rides;
+import com.team.afk.googlehashcode.models.Ride;
+import sun.misc.Cache;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Simulator {
     ProblemStructure problemStructure;
+    private ArrayList<Car> unassignedVehicles;
+    private ArrayList<Car> assignedVehicles;
 
     public Simulator(final ProblemStructure problemStructure) {
         this.problemStructure = problemStructure;
@@ -14,10 +19,10 @@ public class Simulator {
 
     public void run() {
 
-        Rides temp;
+        Ride temp;
         long size = problemStructure.getRides().size();
 
-        for (Rides ride : problemStructure.getRides()) {
+        for (Ride ride : problemStructure.getRides()) {
             for (int x = 0; x < size; x++) {
                 for (int y = 1; y < (size - x); y++) {
                     if(problemStructure.getRides().get(y - 1).getEarliestStart() >  problemStructure.getRides().get(y).getEarliestStart()) {
@@ -29,8 +34,48 @@ public class Simulator {
             }
         }
 
-        for (Rides ride : problemStructure.getRides()) {
-            System.err.println(ride.getEarliestStart());
+        //print shortest paths
+//        for (Ride ride : problemStructure.getRides()) {
+//            System.err.println(ride.getEarliestStart());
+//        }
+
+        unassignedVehicles = new ArrayList<>();
+        assignedVehicles = new ArrayList<>();
+
+        //initialize vehicles
+        for (int x = 0; x < problemStructure.getFleetSize(); x++) {
+             unassignedVehicles.add(new Car(0, 0));
+             if(x < size) {
+                 Car car = unassignedVehicles.remove(x);
+                 car.setRide(problemStructure.getRides().remove(x));
+                 assignedVehicles.add(car);
+             }
+        }
+
+        runSimulation();
+
+    }
+
+    private void runSimulation() {
+
+        for(int i = 0; i < problemStructure.getSteps(); i++) {
+            for (int x = 0; x < assignedVehicles.size(); x++) {
+                Car car = assignedVehicles.get(x);
+                car.move(i);
+                if(car.isDone()) {
+                    unassignedVehicles.add(assignedVehicles.remove(x));
+                }
+                //assign new ride
+
+                //calculating shortest path to next ride
+            }
+
+        }
+    }
+
+    private void findClosestCarToRide(Ride ride) {
+        for (Car car : unassignedVehicles ) {
+            
         }
     }
 }

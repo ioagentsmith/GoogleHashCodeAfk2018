@@ -1,9 +1,8 @@
 package com.team.afk.googlehashcode;
 
 import com.team.afk.googlehashcode.models.ProblemStructure;
-import com.team.afk.googlehashcode.models.Rides;
+import com.team.afk.googlehashcode.models.Ride;
 import com.team.afk.googlehashcode.simulation.Simulator;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.BufferedReader;
@@ -18,7 +17,7 @@ public class AfkGoogleHashcodeApplication {
 	public static void main(String[] args) {
 
 		System.out.println("Test");
-		
+
 		ProblemStructure problemStructure = readProblemStructure(".\\src\\main\\resources\\a_example.in");
 		new Simulator(problemStructure).run();
 	}
@@ -38,7 +37,7 @@ public class AfkGoogleHashcodeApplication {
 			for(int i = 0; i < problemStructure.getNumberOfRides(); i++){
 				sCurrentLine = br.readLine();
 				String[] ridesArray = sCurrentLine.split(" ");
-				problemStructure.getRides().add(new Rides(Long.parseLong(ridesArray[0]), Long.parseLong(ridesArray[1]), Long.parseLong(ridesArray[2]),
+				problemStructure.getRides().add(new Ride(Long.parseLong(ridesArray[0]), Long.parseLong(ridesArray[1]), Long.parseLong(ridesArray[2]),
 						Long.parseLong(ridesArray[3]), Long.parseLong(ridesArray[4]), Long.parseLong(ridesArray[5])));
 			}
 			return problemStructure;
