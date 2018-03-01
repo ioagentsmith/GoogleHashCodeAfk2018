@@ -67,9 +67,9 @@ public class Simulator {
             System.err.println("Step " + i);
             for (int x = 0; x < assignedVehicles.size(); x++) {
                 //Move car
-                System.err.println("Before Moving car " + x + " --> " + assignedVehicles.get(x));
-                if (assignedVehicles.get(x)!= null){
-                moveCar(assignedVehicles.get(x), x, i);
+                System.err.println("Before Moving car " + x + " --> " + assignedVehicles.get(0));
+                if (assignedVehicles.get(0)!= null){
+                moveCar(assignedVehicles.get(0), x, i);
                 }
             }
             //assign new ride
@@ -82,15 +82,23 @@ public class Simulator {
         for (int i = 0; i < problemStructure.getRides().size(); i++) {
             //calculating shortest path to next ride
             Car car = findClosestAvailableCarToRide(problemStructure.getRides().get(i));
+            if (car!= null){
             unassignedVehicles.remove(car);
             assignedVehicles.add(car);
+            }
         }
     }
 
-    private void moveCar(final Car car, final int carIndex, int step) {
+    private void moveCar(final Car car,final int index,  int step) {
+        assignedVehicles.remove(car);
+        if (car == null) return;
         car.move(step);
+        
         if(car.isDone()) {
-            unassignedVehicles.add(assignedVehicles.remove(carIndex));
+            unassignedVehicles.add(car);
+        }
+        else{
+            assignedVehicles.add(car);
         }
     }
 
