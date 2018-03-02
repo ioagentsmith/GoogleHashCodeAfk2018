@@ -14,7 +14,10 @@ import java.util.List;
 public class AfkGoogleHashcodeApplication {
 
     public static void main(String[] args) {
-      String[] files = new String[]{"a_example.in","b_should_be_easy.in","c_no_hurry.in","d_metropolis.in","e_high_bonus.in"};
+      String[] files = new String[]{
+      "a_example.in",
+      "b_should_be_easy.in",
+      "c_no_hurry.in","d_metropolis.in","e_high_bonus.in"};
       for (String file : files){
          runForFile(file);
       }   
@@ -22,12 +25,13 @@ public class AfkGoogleHashcodeApplication {
    }
 
     private static void runForFile(String fileName){
-          String file = "C:\\Source\\GoogleHashCodeAfk2018\\src\\main\\resources\\" +fileName;
+    
+      String file = "C:\\Source\\GoogleHashCodeAfk2018\\src\\main\\resources\\" +fileName;
       String fileOut = file.replace(".in",".out");
 		ProblemStructure problemStructure = readProblemStructure(file);
-		
-        List<Car> carList = new Simulator(problemStructure).run();
-
+		System.out.println("Starting -->" + fileName);
+       List<Car> carList = new Simulator(problemStructure).run();
+      System.out.println("Done -->" + fileName);
         try {
             System.out.println("Reading to file -->" + fileOut);
             writeToFile(carList, fileOut);
