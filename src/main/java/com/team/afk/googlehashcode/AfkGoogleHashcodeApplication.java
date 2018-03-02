@@ -14,21 +14,30 @@ import java.util.List;
 public class AfkGoogleHashcodeApplication {
 
     public static void main(String[] args) {
+      String[] files = new String[]{"a_example.in","b_should_be_easy.in","c_no_hurry.in","d_metropolis.in","e_high_bonus.in"};
+      for (String file : files){
+         runForFile(file);
+      }   
+       
+   }
 
-        System.out.println("Test");
-
-		ProblemStructure problemStructure = readProblemStructure("C:\\Source\\GoogleHashCodeAfk2018\\src\\main\\resources\\a_example.in");
-		new Simulator(problemStructure).run();
-	}
-
-        List<Car> carList = simulator.run();
+    private static void runForFile(String fileName){
+          String file = "C:\\Source\\GoogleHashCodeAfk2018\\src\\main\\resources\\" +fileName;
+      String fileOut = file.replace(".in",".out");
+		ProblemStructure problemStructure = readProblemStructure(file);
+		
+        List<Car> carList = new Simulator(problemStructure).run();
 
         try {
-            writeToFile(carList, ".\\src\\main\\resources\\c_no_hurry.out");
+            System.out.println("Reading to file -->" + fileOut);
+            writeToFile(carList, fileOut);
         } catch (IOException ioe) {
+            System.out.println(ioe.getMessage());
             System.out.println("Major Malfunction");
         }
+    
     }
+
 
     private static ProblemStructure readProblemStructure(String filePath) {
         BufferedReader br = null;
@@ -83,7 +92,9 @@ public class AfkGoogleHashcodeApplication {
 
         }
         finally {
+            if (fileWriter!= null){
             fileWriter.close();
-        }
+            }
+            }
     }
 }

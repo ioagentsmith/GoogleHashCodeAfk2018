@@ -22,3 +22,14 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+src/main/java/com/team/afk/googlehashcode/models/Car\.class
+
+src/main/java/com/team/afk/googlehashcode/models/ProblemStructure\.class
+
+src/main/java/com/team/afk/googlehashcode/models/Ride\.class
+
+src/main/java/com/team/afk/googlehashcode/simulation/Simulator\.class
+
+src/main/java/com/team/afk/googlehashcode/AfkGoogleHashcodeApplication\.class
+
+*.out
