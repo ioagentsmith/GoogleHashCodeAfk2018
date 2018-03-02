@@ -1,5 +1,6 @@
 package com.team.afk.googlehashcode;
 
+import com.team.afk.googlehashcode.models.Car;
 import com.team.afk.googlehashcode.models.ProblemStructure;
 import com.team.afk.googlehashcode.models.Ride;
 import com.team.afk.googlehashcode.simulation.Simulator;
@@ -8,62 +9,81 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.List;
 
 public class AfkGoogleHashcodeApplication {
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 
-		System.out.println("Test");
+        System.out.println("Test");
 
 		ProblemStructure problemStructure = readProblemStructure("C:\\Source\\GoogleHashCodeAfk2018\\src\\main\\resources\\a_example.in");
 		new Simulator(problemStructure).run();
 	}
 
-	private static ProblemStructure readProblemStructure(String filePath) {
-		BufferedReader br = null;
-		FileReader fr = null;
+        List<Car> carList = simulator.run();
 
-		try {
-			fr = new FileReader(filePath);
-			br = new BufferedReader(fr);
-			String sCurrentLine = br.readLine();
-			String[] fileFormatArray = sCurrentLine.split(" ");
-			ProblemStructure problemStructure = new ProblemStructure(Long.parseLong(fileFormatArray[0]), Long.parseLong(fileFormatArray[1]), Long.parseLong(fileFormatArray[2]),
-					Long.parseLong(fileFormatArray[3]),Long.parseLong(fileFormatArray[4]), Long.parseLong(fileFormatArray[5]));
+        try {
+            writeToFile(carList, ".\\src\\main\\resources\\c_no_hurry.out");
+        } catch (IOException ioe) {
+            System.out.println("Major Malfunction");
+        }
+    }
 
-			for(int i = 0; i < problemStructure.getNumberOfRides(); i++){
-				sCurrentLine = br.readLine();
-				String[] ridesArray = sCurrentLine.split(" ");
-				problemStructure.getRides().add(new Ride(i, Long.parseLong(ridesArray[0]), Long.parseLong(ridesArray[1]), Long.parseLong(ridesArray[2]),
-						Long.parseLong(ridesArray[3]), Long.parseLong(ridesArray[4]), Long.parseLong(ridesArray[5])));
-			}
-			return problemStructure;
-		} catch (IOException e) {
-			e.printStackTrace();
+    private static ProblemStructure readProblemStructure(String filePath) {
+        BufferedReader br = null;
+        FileReader fr = null;
 
-		} finally {
-			try {
-				if (br != null)
-					br.close();
-				if (fr != null)
-					fr.close();
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
-		}
-		return null;
-	}
+        try {
+            fr = new FileReader(filePath);
+            br = new BufferedReader(fr);
+            String sCurrentLine = br.readLine();
+            String[] fileFormatArray = sCurrentLine.split(" ");
+            ProblemStructure problemStructure = new ProblemStructure(Long.parseLong(fileFormatArray[0]), Long.parseLong(fileFormatArray[1]), Long.parseLong(fileFormatArray[2]),
+                    Long.parseLong(fileFormatArray[3]),Long.parseLong(fileFormatArray[4]), Long.parseLong(fileFormatArray[5]));
 
-	private static void writeToFile(String filePath) throws IOException {
-		Writer fileWriter = null;
-		try {
-			fileWriter = new FileWriter(filePath);
+            for(int i = 0; i < problemStructure.getNumberOfRides(); i++){
+                sCurrentLine = br.readLine();
+                String[] ridesArray = sCurrentLine.split(" ");
+                problemStructure.getRides().add(new Ride(i, Long.parseLong(ridesArray[0]), Long.parseLong(ridesArray[1]), Long.parseLong(ridesArray[2]),
+                        Long.parseLong(ridesArray[3]), Long.parseLong(ridesArray[4]), Long.parseLong(ridesArray[5])));
+            }
+            return problemStructure;
+        } catch (IOException e) {
+            e.printStackTrace();
 
-			fileWriter.write("data 1");
-			fileWriter.write("data 2");
-			fileWriter.write("data 3");
-		}finally {
-			fileWriter.close();
-		}
-	}
+        } finally {
+            try {
+                if (br != null)
+                    br.close();
+                if (fr != null)
+                    fr.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    private static void writeToFile(List<Car> cars, String filePath) throws IOException {
+        Writer fileWriter = null;
+        try {
+            fileWriter = new FileWriter(filePath);
+
+            for (int noOfCars = 0; noOfCars < cars.size(); noOfCars++) {
+                String carData = "";
+                List<Ride> rides = cars.get(noOfCars).getRides();
+                carData += rides.size();
+                for (int count = 0; count < rides.size(); count++) {
+                    carData += " " + rides.get(count).getRideId();
+                }
+                carData += "\n";
+                fileWriter.write(carData);
+            }
+
+        }
+        finally {
+            fileWriter.close();
+        }
+    }
 }
